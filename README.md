@@ -1,3 +1,71 @@
+## Webpack
+Webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.
+
+Webpack has become one of the most important tools for modern web development. It’s primarily a module bundler for your JavaScript, but it can be taught to transform all of your front-end assets like HTML, CSS, even images. It can give you more control over the number of HTTP requests your app is making and allows you to use other flavors of those assets (Pug, Sass, and ES8, for example). Webpack also allows you to easily consume packages from npm.
+
+## Setup
+
+```
+mkdir webpack-demo && cd webpack-demo
+npm init -y
+npm install --save-dev webpack webpack-cli
+```
+
+## Modules
+Webpack knows how to consume ES Modules using import and export statements.
+
+Using npm run build to compile in production mode, all of the unused lodash modules from lodash-es are removed from bundle. This process of removing unused imports is known as tree-shaking, and is something you get for free with Webpack.
+
+```
+npm install --save-dev lodash-es
+```
+## Loaders
+
+Loaders let you run preprocessors on files as they’re imported. This allows you to bundle static resources beyond JavaScript. 
+
+Let’s keep our code modern by running all .js files through the next-generation JavaScript transpiler Babel
+
+```
+npm install --save-dev "babel-loader@^8.0.0-beta" @babel/core @babel/preset-env
+```
+
+```
+{
+  "presets": [
+    ["@babel/env", {
+      "modules": false
+    }]
+  ],
+  "plugins": ["syntax-dynamic-import"]
+}
+```
+
+This config prevents Babel from transpiling import and export statements into ES5, and enables dynamic imports — which we’ll look at later in the section on Code Splitting.
+
+We’re now free to use modern language features, and they’ll be compiled down to ES5 that runs in all browsers.
+
+# Loaders - Sass
+Loaders can be chained together into a series of transforms.
+
+These loaders are processed in reverse order:
+
++ **sass-loader** transforms Sass into CSS.
++ **css-loader**  parses the CSS into JavaScript and resolves any dependencies.
++ **style-loader** outputs our CSS into a &lt;style&gt; tag in the document.
+
+You can think of these as function calls. The output of one loader feeds as input into the next:
+	styleLoader(cssLoader(sassLoader("source")))
+
+```
+npm install --save-dev style-loader css-loader sass-loader node-sass
+```
+
+# CSS in JS
+We just imported a Sass file from our JavaScript, as a module.
+When we import this module into our JavaScript, style-loader outputs that string into an embedded <style> tag.
+
+## Why would you do such a thing? ##
+----
 # webpack-demo
 webpack-demo
 

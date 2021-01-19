@@ -1,10 +1,17 @@
 const path = require('path')
 
+//entry: './src/index.js',
+//filename: 'bundle.js',
+
 module.exports = {
-    entry: './src/index.js',
+    
+    entry: {
+        app: './src/app.js'
+    },
     devtool: false, // inline-source-map, source-map
     output: {
-        filename: 'bundle.js',
+        
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
     module: {
@@ -13,7 +20,7 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: 'babel-loader'
+                    loader: 'babel-loader'                    
                     // ,
                     // options: {
                     //     presets: ["babel-preset-env"]

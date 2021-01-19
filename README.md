@@ -88,6 +88,24 @@ With Webpack, you can optimize this in the case of small images by storing the s
 npm install --save-dev file-loader
 ```
 
+# Code Splitting
+
+Code splitting is one of the most compelling features of Webpack. This feature allows you to split your code into various bundles which can then be loaded on demand or in parallel. It can be used to achieve smaller bundles and control resource load prioritization which, if used correctly, can have a major impact on load time.
+
+When your app grows, you’ll need to split this up so that the entire codebase isn’t downloaded at the start. A good approach is to use Code Splitting and Lazy Loading to fetch things on demand as the code paths require them.
+
+  button.onclick = () => {
+  import(/* webpackChunkName: "chat" */ "./chat").then(chat => {
+    chat.init()
+  })
+}
+
+# Plugins
+
+While loaders operate transforms on single files, plugins operate across larger chunks of code.
+
+Now that we’re bundling our code, external modules and static assets, our bundle will grow — quickly. Plugins are here to help us split our code in clever ways and optimize things for production.
+
 ----
 # webpack-demo
 webpack-demo

@@ -1,9 +1,11 @@
-## Webpack
+# A build step into your process.
+
+# Webpack
 Webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.
 
 Webpack has become one of the most important tools for modern web development. It’s primarily a module bundler for your JavaScript, but it can be taught to transform all of your front-end assets like HTML, CSS, even images. It can give you more control over the number of HTTP requests your app is making and allows you to use other flavors of those assets (Pug, Sass, and ES8, for example). Webpack also allows you to easily consume packages from npm.
 
-## Setup
+# Setup
 
 ```
 mkdir webpack-demo && cd webpack-demo
@@ -11,7 +13,7 @@ npm init -y
 npm install --save-dev webpack webpack-cli
 ```
 
-## Modules
+# Modules
 Webpack knows how to consume ES Modules using import and export statements.
 
 Using npm run build to compile in production mode, all of the unused lodash modules from lodash-es are removed from bundle. This process of removing unused imports is known as tree-shaking, and is something you get for free with Webpack.
@@ -19,7 +21,7 @@ Using npm run build to compile in production mode, all of the unused lodash modu
 ```
 npm install --save-dev lodash-es
 ```
-## Loaders
+# Loaders
 
 Loaders let you run preprocessors on files as they’re imported. This allows you to bundle static resources beyond JavaScript. 
 
@@ -44,7 +46,7 @@ This config prevents Babel from transpiling import and export statements into ES
 
 We’re now free to use modern language features, and they’ll be compiled down to ES5 that runs in all browsers.
 
-# Loaders - Sass
+## Sass - Loader
 Loaders can be chained together into a series of transforms.
 
 These loaders are processed in reverse order:
@@ -60,11 +62,32 @@ You can think of these as function calls. The output of one loader feeds as inpu
 npm install --save-dev style-loader css-loader sass-loader node-sass
 ```
 
-# CSS in JS
+## CSS in JS
 We just imported a Sass file from our JavaScript, as a module.
 When we import this module into our JavaScript, style-loader outputs that string into an embedded <style> tag.
 
 ## Why would you do such a thing? ##
+
+here are a few reasons to consider:
+
++ **.** A JavaScript component you may want to include in your project may depend on other assets to function properly (HTML, CSS, Images, SVG). If these can all be bundled together, it’s far easier to import and use.
+
++ **.** Dead code elimination: When a JS component is no longer imported by your code, the CSS will no longer be imported either. The bundle produced will only ever contain code that does something.
+
++ **.** CSS Modules: The global namespace of CSS makes it very difficult to be confident that a change to your CSS will not have any side effects. CSS modules change this by making CSS local by default and exposing unique class names that you can reference in your JavaScript.
+
++ **.** Bring down the number of HTTP requests by bundling/splitting code in clever ways.
+
+# Images - Loader
+
+Handling of images with file-loader
+
+With Webpack, you can optimize this in the case of small images by storing the source of the images as strings inside your JavaScript. By doing this, you preload them and the browser won’t have to fetch them with separate requests later.
+
+```
+npm install --save-dev file-loader
+```
+
 ----
 # webpack-demo
 webpack-demo
@@ -166,3 +189,8 @@ https://www.youtube.com/watch?v=WQue1AN93YU&t=724s
 
 Creating a Node Express-Webpack App with Dev and Prod Builds
 https://medium.com/@binyamin/creating-a-node-express-webpack-app-with-dev-and-prod-builds-a4962ce51334
+
+curl https://raw.githubusercontent.com/sitepoint-editors/webpack-demo/master/src/code.png --output src/code.png
+
+Setting up an ES6 Project Using Babel and webpack
+https://www.sitepoint.com/es6-babel-webpack/

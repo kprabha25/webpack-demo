@@ -14,6 +14,10 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader'
+                    // ,
+                    // options: {
+                    //     presets: ["babel-preset-env"]
+                    // }
                 }
             },
             {
@@ -25,6 +29,14 @@ module.exports = {
                 }, {
                     loader: 'sass-loader'
                 }]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader'
+                    }
+                ]
             }
         ]
     }

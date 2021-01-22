@@ -106,6 +106,13 @@ While loaders operate transforms on single files, plugins operate across larger 
 
 Now that we’re bundling our code, external modules and static assets, our bundle will grow — quickly. Plugins are here to help us split our code in clever ways and optimize things for production.
 
+# Split CSS
+It’s considered best practice to split your CSS from your JavaScript when bundling for production using ExtractTextWebpackPlugin(deprecated) / mini-css-extract-plugin.
+
+The current .scss loaders are perfect for development, so we’ll move those from webpack.common.js into webpack.dev.js and add ExtractTextWebpackPlugin to webpack.prod.js only.
+
+Now that our CSS is extracted from our JavaScript bundle for production, we need to <link> to it from our HTML.
+
 ----
 # webpack-demo
 webpack-demo
@@ -212,3 +219,9 @@ curl https://raw.githubusercontent.com/sitepoint-editors/webpack-demo/master/src
 
 Setting up an ES6 Project Using Babel and webpack
 https://www.sitepoint.com/es6-babel-webpack/
+
+webpack mini-css-extract-plugin => output multiple css-files on single entry
+https://stackoverflow.com/questions/55677070/webpack-mini-css-extract-plugin-output-multiple-css-files-on-single-entry
+
+How to properly handle css-files by mini-css-extract-plugin in webpack 4?
+https://stackoverflow.com/questions/58471753/how-to-properly-handle-css-files-by-mini-css-extract-plugin-in-webpack-4

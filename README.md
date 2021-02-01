@@ -109,10 +109,40 @@ Now that we’re bundling our code, external modules and static assets, our bund
 # Split CSS
 It’s considered best practice to split your CSS from your JavaScript when bundling for production using ExtractTextWebpackPlugin(deprecated) / mini-css-extract-plugin.
 
+```
+npm install --save-dev mini-css-extract-plugin
+```
+
 The current .scss loaders are perfect for development, so we’ll move those from webpack.common.js into webpack.dev.js and add ExtractTextWebpackPlugin to webpack.prod.js only.
 
 Now that our CSS is extracted from our JavaScript bundle for production, we need to <link> to it from our HTML.
 
+This allows for parallel download of the CSS and JavaScript in the browser, so will be faster-loading than a single bundle. It also allows the styles to be displayed before the JavaScript finishes downloading.
+
+# Generating HTML
+
+Whenever our outputs have changed, we’ve had to keep updating index.html to reference the new file paths. This is precisely what html-webpack-plugin was created to do for us automatically.
+
+We may as well add clean-webpack-plugin at the same time to clear out our /dist directory before each build.
+```
+npm install --save-dev html-webpack-plugin clean-webpack-plugin
+```
+
+# Development
+
+The webpack-dev-server provides you with a simple web server and gives you live reloading, so you don’t need to manually refresh the page to see changes.
+```
+npm install --save-dev webpack-dev-server
+```
+package.json
+
+      "scripts": {
+  -     "develop": "webpack --watch --config webpack.dev.js",
+  +     "develop": "webpack-dev-server --config webpack.dev.js",
+      }   
+
+Open up http://localhost:8080/ in the browser and make a change to one of the JavaScript or CSS files. You should see it build and refresh automatically.
+ 
 ----
 # webpack-demo
 webpack-demo

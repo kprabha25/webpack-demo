@@ -1,4 +1,6 @@
 const path = require('path')
+const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 //entry: './src/index.js',
 //filename: 'bundle.js',
@@ -9,8 +11,7 @@ module.exports = {
         app: './src/app.js'
     },
     devtool: false, // inline-source-map, source-map
-    output: {
-        
+    output: {        
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
@@ -21,10 +22,6 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader'                    
-                    // ,
-                    // options: {
-                    //     presets: ["babel-preset-env"]
-                    // }
                 }
             },            
             {
@@ -36,5 +33,15 @@ module.exports = {
                 ]
             }
         ]
-    }
+    },
+
+    plugins: [
+        new CleanWebpackPlugin({
+            cleanAfterEveryBuildPatterns: ['dist']
+        }),
+        new HtmlWebpackPlugin({
+            title: 'My killer app'
+        })
+    ]
+
 }
